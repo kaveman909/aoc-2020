@@ -7,6 +7,7 @@
 #include <fmt/core.h>
 
 using namespace std;
+using namespace fmt;
 
 int main(int argc, char *argv[]) {
   assert(argc == 2);
@@ -31,10 +32,10 @@ int main(int argc, char *argv[]) {
     for (const auto &j : v) {
       for (const auto &k : v) {
         if (!found && ((j + k) == TARGET)) {
-          cout << "Part 1: " << (j * k) << endl;
+          print("Part 1: {}\n", j * k);
           found = true;
         } else if ((i + j + k) == TARGET) {
-          cout << "Part 2: " << (i * j * k) << endl;
+          print("Part 2: {}\n", i * j * k);
           return 0;
         }
       }
