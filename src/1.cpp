@@ -1,9 +1,10 @@
 #include <algorithm>
 #include <cassert>
-#include <cstring>
+#include <string>
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <fmt/core.h>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ int main(int argc, char *argv[]) {
   vector<int> v;
 
   for (char buf[MAX_LEN]; in.getline(buf, MAX_LEN);) {
-    v.emplace_back(atoi(buf));
+    v.emplace_back(stoi(buf));
   }
 
   // Since there's lots of large numbers that won't add to 2020, will be faster
