@@ -4,7 +4,7 @@ project(AOC_2020)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 
 include_directories(include)
 
@@ -23,6 +23,6 @@ target_link_libraries(day${x} PUBLIC fmt aocutil)
 # Test Section
 
 add_test(NAME d${x} COMMAND day${x} ../input/${x}.txt)
-add_test(NAME d${x}a COMMAND day${x} ../input/${x}.txt)
+add_test(NAME d${x}a COMMAND day${x} ../input/${x}a.txt)
 
 endforeach()
