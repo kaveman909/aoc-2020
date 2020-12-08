@@ -8,26 +8,21 @@ set(CMAKE_BUILD_TYPE Release)
 
 include_directories(include)
 
+enable_testing()
+
 # Library Section
 add_library(aocutil STATIC src/aoc_util.cpp)
 
+foreach(x RANGE 1 4)
+
 # AoC Days Section
-add_executable(day1 src/1.cpp)
-target_link_libraries(day1 PUBLIC fmt)
 
-add_executable(day2 src/2.cpp)
-target_link_libraries(day2 PUBLIC fmt aocutil)
-
-add_executable(day3 src/3.cpp)
-target_link_libraries(day3 PUBLIC fmt aocutil)
+add_executable(day${x} src/${x}.cpp)
+target_link_libraries(day${x} PUBLIC fmt aocutil)
 
 # Test Section
-enable_testing()
 
-add_test(NAME d1 COMMAND day1 ../input/1.txt)
-add_test(NAME d2 COMMAND day2 ../input/2.txt)
-add_test(NAME d3 COMMAND day3 ../input/3.txt)
+add_test(NAME d${x} COMMAND day${x} ../input/${x}.txt)
+add_test(NAME d${x}a COMMAND day${x} ../input/${x}.txt)
 
-add_test(NAME d1a COMMAND day1 ../input/1a.txt)
-add_test(NAME d2a COMMAND day2 ../input/2a.txt)
-add_test(NAME d3a COMMAND day3 ../input/3a.txt)
+endforeach()
