@@ -1,10 +1,11 @@
+#include <fmt/core.h>
+
 #include <algorithm>
 #include <cassert>
-#include <string>
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <vector>
-#include <fmt/core.h>
 
 using namespace std;
 using namespace fmt;

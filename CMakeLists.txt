@@ -4,6 +4,14 @@ project(AOC_2020)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_BUILD_TYPE Release)
+
+include_directories(include)
+
+add_library(aocutil STATIC src/aoc_util.cpp)
 
 add_executable(day1 src/1.cpp)
 target_link_libraries(day1 PUBLIC fmt)
+
+add_executable(day2 src/2.cpp)
+target_link_libraries(day2 PUBLIC fmt aocutil)
