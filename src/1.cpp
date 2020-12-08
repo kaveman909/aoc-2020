@@ -1,3 +1,4 @@
+#include <fmt/color.h>
 #include <fmt/core.h>
 
 #include <algorithm>
@@ -30,10 +31,12 @@ int main(int argc, char *argv[]) {
     for (const auto &j : v) {
       for (const auto &k : v) {
         if (!found && ((j + k) == TARGET)) {
-          print("Part 1: {}\n", j * k);
+          print(emphasis::bold | fg(color::forest_green), "Part 1: {}\n",
+                j * k);
           found = true;
         } else if ((i + j + k) == TARGET) {
-          print("Part 2: {}\n", i * j * k);
+          print(emphasis::bold | fg(color::forest_green), "Part 2: {}\n",
+                i * j * k);
           return 0;
         }
       }
