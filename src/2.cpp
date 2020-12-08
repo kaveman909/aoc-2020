@@ -10,7 +10,6 @@
 
 using namespace std;
 using namespace fmt;
-using namespace std::string_literals;
 
 int main(int argc, char *argv[]) {
   assert(argc == 2);
@@ -18,6 +17,7 @@ int main(int argc, char *argv[]) {
   const auto in = process_input(argv[1]);
   const regex parse(R"((\d+)-(\d+) (\w): (\w+))");
   int password_counter = 0;
+  int password_counter_2 = 0;
 
   for (const auto &line : in) {
     smatch m;
@@ -36,9 +36,20 @@ int main(int argc, char *argv[]) {
     if ((letter_counter <= highest) && (letter_counter >= lowest)) {
       password_counter++;
     }
+
+    const int &p1 = lowest;
+    const int &p2 = highest;
+
+    const bool p1_m = (password.c_str()[p1 - 1] == letter);
+    const bool p2_m = (password.c_str()[p2 - 1] == letter);
+
+    if (p1_m ^ p2_m) {
+      password_counter_2++;
+    }
   }
 
   print("Part 1: {}\n", password_counter);
+  print("Part 2: {}\n", password_counter_2);
 
   return 0;
 }
