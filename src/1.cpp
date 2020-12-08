@@ -7,21 +7,18 @@
 #include <string>
 #include <vector>
 
+#include "aoc_util.h"
+
 using namespace std;
 using namespace fmt;
 
 int main(int argc, char *argv[]) {
   assert(argc == 2);
 
-  const int MAX_LEN = 10;
   const int TARGET = 2020;
 
-  ifstream in(argv[1]);
-  vector<int> v;
-
-  for (char buf[MAX_LEN]; in.getline(buf, MAX_LEN);) {
-    v.emplace_back(stoi(buf));
-  }
+  auto v = process_input(
+      argv[1], +[](const string &x) { return stoi(x); });
 
   // Since there's lots of large numbers that won't add to 2020, will be faster
   // in the long run if we sort the list first (I would think... though could be

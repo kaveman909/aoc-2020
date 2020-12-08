@@ -1,7 +1,6 @@
 #include "aoc_util.h"
 
-std::vector<std::string> process_input(char* fpath) {
-  const int MAX_LEN = 100;
+std::vector<std::string> process_input(char *fpath) {
   std::ifstream in(fpath);
   std::vector<std::string> v;
 
