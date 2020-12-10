@@ -78,7 +78,7 @@ struct Passport {
 
     bool valid() const {
       const regex r(R"(\d{9})");
-      return regex_search(id, r);
+      return regex_match(id, r);
     }
   };
 
@@ -148,7 +148,6 @@ int main(int argc, char *argv[]) {
       Passport passport(pi[0], pi[1], pi[2], pi[3], pi[4], pi[5], pi[6]);
       if (passport.valid()) {
         found2++;
-        print("{}\n", pi);
       }
     }
   }
