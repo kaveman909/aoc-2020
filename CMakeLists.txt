@@ -22,7 +22,7 @@ target_link_libraries(day${x} PUBLIC fmt aocutil)
 
 # Test Section
 
-add_test(NAME d${x} COMMAND day${x} ../input/${x}.txt)
-add_test(NAME d${x}a COMMAND day${x} ../input/${x}a.txt)
+add_test(NAME d${x} COMMAND day${x} $ENV{HOME}/aoc-2020/input/${x}.txt)
+add_test(NAME d${x}a COMMAND day${x} $ENV{HOME}/aoc-2020/input/${x}a.txt)
 
 endforeach()
