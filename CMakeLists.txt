@@ -6,14 +6,14 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_BUILD_TYPE Debug)
 
-include_directories(include)
+include_directories(include $ENV{HOME}/boost_1_75_0)
 
 enable_testing()
 
 # Library Section
 add_library(aocutil STATIC src/aoc_util.cpp)
 
-foreach(x RANGE 1 6)
+foreach(x RANGE 1 7)
 
 # AoC Days Section
 

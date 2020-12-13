@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-static const int MAX_LEN = 100;
+static const int MAX_LEN = 150;
 
 std::vector<std::string> process_input(char *fpath);
 
