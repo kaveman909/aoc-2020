@@ -31,7 +31,7 @@ auto create_maps(const vector<string> &rules) {
     vector<string> inner_bags;
     boost::split(inner_bags, inner_bags_unparsed,
                  [](char c) { return c == ','; });
-    for (auto &inner_bag : inner_bags) {
+    for (const auto &inner_bag : inner_bags) {
       const regex r1(R"( ?(\d+) (.*) bags?)");
       smatch m1;
       if (regex_match(inner_bag, m1, r1)) {
