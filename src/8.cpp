@@ -41,33 +41,60 @@ int main(int argc, char *argv[]) {
   assert(argc == 2);
 
   auto instrs = process_input(argv[1]);
-  Prog p{instrs};
-  vector<int> visited;
+  {
+    Prog p{instrs};
+    vector<int> visited;
 
-  while (1) {
-    visited.emplace_back(p.pc);
+    while (1) {
+      visited.emplace_back(p.pc);
 
-    p.step();
+      p.step();
 
-    // determine if we've 'been here before'
-    if (ranges::find(visited, p.pc) != visited.end()) {
-      break;
+      // determine if we've 'been here before'
+      if (ranges::find(visited, p.pc) != visited.end()) {
+        break;
+      }
+    }
+
+    print("Part 1: {}\n", p.acc);
+  }
+
+  const array<array<const char *, 2>, 2> replacment_list = {"jmp", "nop", "nop",
+                                                            "jmp"};
+  for (auto [to_find, to_replace] : replacment_list) {
+    auto it = instrs.begin();
+    while (it != instrs.end()) {
+      it = ranges::find_if(it, instrs.end(), [&to_find](string s) {
+        return s.find(to_find) != string::npos;
+      });
+      if (it != instrs.end()) {
+        (*it).replace(0, 3, to_replace);
+      } else {
+        break;
+      }
+
+      Prog p{instrs};
+      vector<int> visited;
+
+      while (1) {
+        if (p.pc >= instrs.size()) {
+          print("Part 2: {}\n", p.acc);
+          return 0;
+        }
+        visited.emplace_back(p.pc);
+
+        p.step();
+
+        // determine if we've 'been here before'
+        if (ranges::find(visited, p.pc) != visited.end()) {
+          break;
+        }
+      }
+
+      // replace previous instruction
+      (*it).replace(0, 3, to_find);
+      it++;
     }
   }
-
-  print("Part 1: {}\n", p.acc);
-
-  vector<string>::iterator it = instrs.begin();
-
-  auto line = ranges::find_if(it, instrs.end(), [&](string s) {
-    return s.find("nop") != string::npos;
-  });
-  it = line;
-  if (it != instrs.end()) {
-    (*it).replace(0, 3, "jmp");
-  }
-
-  print("{}\n", *it);
-
-  return 0;
+  return 1;
 }
