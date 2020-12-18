@@ -46,13 +46,14 @@ int main(int argc, char *argv[]) {
   // Begin Part 2
   auto start_it = xmas.begin();
   auto end_it = start_it + 1;
-
+  unsigned long sum = 0;
   while(1) {
-    if (end_it == xmas.end()) {
+    if ((end_it == xmas.end()) || (sum > weakness)) {
       start_it++;
       end_it = start_it + 1;
     }
-    if (accumulate(start_it, end_it, 0UL) == weakness) {
+    sum = accumulate(start_it, end_it, 0UL);
+    if (sum == weakness) {
       const auto &max = *max_element(start_it, end_it);
       const auto &min = *min_element(start_it, end_it);
       print("Part 2: {}\n", min + max);
@@ -60,6 +61,5 @@ int main(int argc, char *argv[]) {
     }
     end_it++;
   }
-
   return 1;
 }
