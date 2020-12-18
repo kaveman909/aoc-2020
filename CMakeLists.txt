@@ -13,7 +13,7 @@ enable_testing()
 # Library Section
 add_library(aocutil STATIC src/aoc_util.cpp)
 
-foreach(x RANGE 1 8)
+foreach(x RANGE 1 9)
 
 # AoC Days Section
 
