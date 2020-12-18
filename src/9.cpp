@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   bool found = true;
   unsigned long weakness = 0;
   while (st < xmas.size() - PRE_LEN) {
-    if(!found) {
+    if (!found) {
       weakness = xmas[st + PRE_LEN - 1];
       print("Part 1: {}\n", weakness);
       break;
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
   auto start_it = xmas.begin();
   auto end_it = start_it + 1;
   unsigned long sum = 0;
-  while(1) {
+  while (1) {
     if ((end_it == xmas.end()) || (sum > weakness)) {
       start_it++;
       end_it = start_it + 1;
