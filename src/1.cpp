@@ -18,8 +18,7 @@ int main(int argc, char *argv[]) {
 
   const int TARGET = 2020;
 
-  auto v = process_input(
-      argv[1], +[](const string &x) { return stoi(x); });
+  auto v = process_input(argv[1], [](const string &x) { return stoi(x); });
 
   // Since there's lots of large numbers that won't add to 2020, will be faster
   // in the long run if we sort the list first (I would think... though could be

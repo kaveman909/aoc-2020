@@ -16,8 +16,8 @@ using namespace fmt;
 int main(int argc, char *argv[]) {
   assert(argc == 2);
 
-  auto joltages = process_input(
-      argv[1], +[](const string &x) { return stoi(x); });
+  auto joltages =
+      process_input(argv[1], [](const string &x) { return stoi(x); });
 
   ranges::sort(joltages);
   joltages.insert(joltages.begin(), 0);

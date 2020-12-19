@@ -15,8 +15,8 @@ using namespace fmt;
 int main(int argc, char *argv[]) {
   assert(argc == 2);
   const int PRE_LEN = 25;
-  const auto xmas = process_input(
-      argv[1], +[](const string &x) { return stoul(x); });
+  const auto xmas =
+      process_input(argv[1], [](const string &x) { return stoul(x); });
 
   size_t st = 0;
   bool found = true;
