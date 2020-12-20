@@ -1,5 +1,6 @@
 #include <fmt/color.h>
 #include <fmt/core.h>
+#include <fmt/ranges.h>
 
 #include <algorithm>
 #include <cassert>
@@ -29,7 +30,7 @@ int main(int argc, char *argv[]) {
 
   for (int &num : v) {
     if (m.find(num) == m.end()) {
-      m[2020 - num] = num;
+      m[TARGET - num] = num;
     } else {
       ans = num * m[num];
     }
@@ -39,6 +40,24 @@ int main(int argc, char *argv[]) {
   print("Rad   Solution | Time: {} | {}\n", ans,
         duration_cast<microseconds>(stop - start).count());
   //////
+  ans = 0;
+  start = high_resolution_clock::now();
+  array<int, TARGET> a;
+  a.fill(0);
+
+  for (int &num : v) {
+    if (a[num] == 0) {
+      a[TARGET - num] = num;
+    } else {
+      ans = num * a[num];
+    }
+  }
+
+  stop = high_resolution_clock::now();
+  print("Array Solution | Time: {} | {}\n", ans,
+        duration_cast<microseconds>(stop - start).count());
+  //////
+
   ans = 0;
   start = high_resolution_clock::now();
   for (const auto &i : v) {

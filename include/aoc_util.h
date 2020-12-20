@@ -11,7 +11,7 @@ std::vector<std::string> process_input(char *fpath);
 
 template <typename F,
           typename T = std::invoke_result<F, const std::string &>::type>
-std::vector<T> process_input(char *fpath, F conv_f) {
+auto process_input(char *fpath, F conv_f) {
   std::ifstream in(fpath);
   std::vector<T> v;
 

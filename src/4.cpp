@@ -42,7 +42,7 @@ struct Passport {
     }
 
     bool between(int low, int high) const {
-      int _height = (unit == "in") ? std::round(height * 2.54f) : height;
+      int _height = (unit == "in") ? round(height * 2.54f) : height;
 
       return (_height >= low) && (_height <= high);
     }
