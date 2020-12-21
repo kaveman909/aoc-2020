@@ -62,9 +62,8 @@ int main(int argc, char *argv[]) {
 
   auto seating = process_input(argv[1], [](const string &s) {
     vector<Seat> v;
-    map<char, Seat> m = {{'.', Seat::FLOOR}, {'L', Seat::EMPTY}};
-    transform(s.begin(), s.end(), back_inserter(v),
-              [&m](char c) { return m[c]; });
+    unordered_map<char, Seat> m = {{'.', Seat::FLOOR}, {'L', Seat::EMPTY}};
+    ranges::transform(s, back_inserter(v), [&m](char c) { return m[c]; });
     return v;
   });
 
@@ -103,7 +102,6 @@ int main(int argc, char *argv[]) {
     } else {
       int sum = 0;
       for (const auto &row : seating) {
-        // print("{}\n", join(row, ""));
         sum =
             transform_reduce(row.begin(), row.end(), sum, plus(),
                              [](Seat seat) { return seat == Seat::OCCUPIED; });
