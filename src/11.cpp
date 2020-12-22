@@ -42,15 +42,77 @@ auto get_neighbors(const vector<vector<Seat>> &seating, const int x,
                    const int y) {
   vector<Seat> neighbors;
   const int x_min = (x == 0) ? x : x - 1;
-  const int x_max = (x == (seating[0].size() - 1)) ? x : x + 1;
+  const int x_max = (x == seating[0].size()) ? x : x + 1;
   const int y_min = (y == 0) ? y : y - 1;
-  const int y_max = (y == (seating.size() - 1)) ? y : y + 1;
+  const int y_max = (y == seating.size()) ? y : y + 1;
 
-  for (int xi = x_min; xi <= x_max; xi++) {
-    for (int yi = y_min; yi <= y_max; yi++) {
+  for (int xi = x_min; xi < x_max; xi++) {
+    for (int yi = y_min; yi < y_max; yi++) {
       if (((x != xi) || (y != yi)) && (seating[yi][xi] != Seat::FLOOR)) {
         neighbors.emplace_back(seating[yi][xi]);
       }
+    }
+  }
+
+  return neighbors;
+}
+
+auto get_los_neighbors(const vector<vector<Seat>> &seating, const int x,
+                       const int y) {
+  vector<Seat> neighbors;
+
+  const auto start_x = -1;
+  const auto start_y = -1;
+  const auto end_x = seating[y].size();
+  const auto end_y = seating.size();
+
+  for (auto xi = x - 1; xi > start_x; xi--) {
+    if (seating[y][xi] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[y][xi]);
+      break;
+    }
+  }
+  for (auto xi = x + 1; xi < end_x; xi++) {
+    if (seating[y][xi] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[y][xi]);
+      break;
+    }
+  }
+  for (auto yi = y - 1; yi > start_y; yi--) {
+    if (seating[yi][x] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[yi][x]);
+      break;
+    }
+  }
+  for (auto yi = y + 1; yi < end_y; yi++) {
+    if (seating[yi][x] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[yi][x]);
+      break;
+    }
+  }
+
+  for (auto xi = x - 1, yi = y - 1; xi > start_x && yi > start_y; xi--, yi--) {
+    if (seating[yi][xi] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[yi][xi]);
+      break;
+    }
+  }
+  for (auto xi = x + 1, yi = y - 1; xi < end_x && yi > start_y; xi++, yi--) {
+    if (seating[yi][xi] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[yi][xi]);
+      break;
+    }
+  }
+  for (auto xi = x - 1, yi = y + 1; xi > start_x && yi < end_y; xi--, yi++) {
+    if (seating[yi][xi] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[yi][xi]);
+      break;
+    }
+  }
+  for (auto xi = x + 1, yi = y + 1; xi < end_x && yi < end_y; xi++, yi++) {
+    if (seating[yi][xi] != Seat::FLOOR) {
+      neighbors.emplace_back(seating[yi][xi]);
+      break;
     }
   }
 
@@ -70,16 +132,14 @@ int main(int argc, char *argv[]) {
   const int x_max = seating[0].size();
   const int y_max = seating.size();
   auto seating_copy = seating;
-  auto loop_counter = 0;
   while (1) {
-    loop_counter++;
     for (int y = 0; y < y_max; y++) {
       for (int x = 0; x < x_max; x++) {
         auto &current_seat = seating_copy[y][x];
         if (current_seat == Seat::FLOOR) {
           continue;
         }
-        const auto neighbors = get_neighbors(seating, x, y);
+        const auto neighbors = get_los_neighbors(seating, x, y);
         if (current_seat == Seat::EMPTY) {
           // If a seat is empty (L) and there are no occupied seats adjacent to
           // it, the seat becomes occupied
@@ -91,7 +151,7 @@ int main(int argc, char *argv[]) {
         } else if (current_seat == Seat::OCCUPIED) {
           // If a seat is occupied (#) and four or more seats adjacent to it are
           // also occupied, the seat becomes empty.
-          if (ranges::count(neighbors, Seat::OCCUPIED) >= 4) {
+          if (ranges::count(neighbors, Seat::OCCUPIED) >= 5) {
             current_seat = Seat::EMPTY;
           }  // no else
         }    // Otherwise, the seat's state does not change.
@@ -106,7 +166,7 @@ int main(int argc, char *argv[]) {
             transform_reduce(row.begin(), row.end(), sum, plus(),
                              [](Seat seat) { return seat == Seat::OCCUPIED; });
       }
-      print("Part 1: {}\n", sum);
+      print("Part 2: {}\n", sum);
       return 0;
     }
   }
